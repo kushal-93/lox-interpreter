@@ -64,8 +64,7 @@ class Lox {
 
 };
 
-int main(int argc, char const *argv[])
-{
+int main(int argc, char const *argv[]) {
   Lox lox;
   lox.hadError = false;
   
