@@ -1,7 +1,7 @@
 #include <iostream>
-#include <fstream>
-#include <vector>
 #include <string>
+
+#define NULL_LITERAL getNullLiteral()
 
 enum TokenType {
   // Single-character tokens.
@@ -30,7 +30,10 @@ union Literal {
   float num;
 };
 
-
+Literal getNullLiteral() {
+  Literal* l = nullptr; 
+  return *l;
+};
 
 class Token {
 
