@@ -1,34 +1,31 @@
+#include "../include/ErrorUtil.hpp"
+#include "../include/Token.hpp"
+#include "../include/Scanner.hpp"
+
 #include <iostream>
 #include <vector>
-#include "Token.cpp"
-#include "ErrorUtil.h"
 
-class Scanner {
+namespace cli {
 
-private:
-    std::string source;
-    std::vector<Token> tokens;
-    int line = 0, start = 0, current = 0;
-
-    bool isAtEnd() {
+    bool Scanner::isAtEnd() {
         return current >= (int)source.length();
     }
 
-    char advance() {
+    char Scanner::advance() {
         return source[current++];
     }
 
-    void addToken(TokenType type) {
+    void Scanner::addToken(TokenType type) {
         addToken(type, NULL_LITERAL);
     }
 
-    void addToken(TokenType type, Literal literal) {
+    void Scanner::addToken(TokenType type, Literal literal) {
         std::string text = source.substr(start, current);
         Token token(type, text, literal, line);
         tokens.push_back(token);
     }
 
-    bool match(char expected) {
+    bool Scanner::match(char expected) {
         if(isAtEnd()) 
             return false;
         if(source[current] != expected)
@@ -37,7 +34,7 @@ private:
         return true;
     }
 
-    void scanToken() {
+    void Scanner::scanToken() {
         char c = advance();
         switch (c) {
         case '(':
@@ -83,19 +80,19 @@ private:
             addToken(match('=') ? LESS_EQUAL : LESS);
             break;
         default :
-            ErrorUtil::error(line, "Unexpected character: "+c); // circular dependency. Should have a error utility class
+            ErrorUtil::error(line, "Unexpected character: "+c);
             break;    
         }
-
-
     }
 
-public:
-    Scanner(std::string source) {
+    Scanner::Scanner(std::string source) {
         source = source;
+        line = 0;
+        start = 0;
+        current = 0;
     }
 
-    std::vector<Token> scanTokens() {
+    std::vector<Token> Scanner::scanTokens() {
         while (!isAtEnd()) {
             start = current;
             scanToken();
@@ -106,4 +103,5 @@ public:
 
         return tokens;
     }
+
 };
