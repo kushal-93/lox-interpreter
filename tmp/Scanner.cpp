@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
-#include "Token.h"
-#include "Lox.h"
+#include "Token.cpp"
+#include "ErrorUtil.h"
 
 class Scanner {
 
@@ -11,7 +11,7 @@ private:
     int line = 0, start = 0, current = 0;
 
     bool isAtEnd() {
-        return current >= source.length();
+        return current >= (int)source.length();
     }
 
     char advance() {
@@ -83,7 +83,7 @@ private:
             addToken(match('=') ? LESS_EQUAL : LESS);
             break;
         default :
-            Lox::error(line, "Unexpected character: "+c);
+            ErrorUtil::error(line, "Unexpected character: "+c); // circular dependency. Should have a error utility class
             break;    
         }
 
