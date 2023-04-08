@@ -12,7 +12,7 @@ int main(int argc, char const *argv[]) {
         exit(64);
     }
     else if (argc == 2) {
-        cli::Lox::run("");
+        cli::Lox::runFile(argv[1]);
     }
     else {
         cli::Lox::runPrompt();

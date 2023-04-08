@@ -1,16 +1,15 @@
 #include "../include/Lox.hpp"
+#include "../include/ErrorUtil.hpp"
 
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <string>
 
-//#include "ErrorUtil.cpp"
-
 namespace cli {
 
     void Lox::run(std::string source) {
-        std::cout << source << std::endl;
+        std::cout << source << std::endl;        
         //Scanner scanner(source);
         //Scanner scanner;
         //std::vector<std::string> tokens = scanner.scanTokens();
@@ -33,8 +32,8 @@ namespace cli {
                 }
             }
             Lox::run(content);
-            // if (ErrorUtil::hadError)
-            //     exit(65);
+            if (ErrorUtil::hadError)
+                exit(65);
         }
         catch (std::exception const &) {
             std::cout << "Error" << std::endl;
@@ -49,10 +48,8 @@ namespace cli {
             if (line.empty()) 
                 break;
             Lox::run(line);
-            //ErrorUtil::hadError = false;
+            ErrorUtil::hadError = true;
         }
     }
-
-
-
+    
 };
