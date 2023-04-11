@@ -34,17 +34,17 @@ namespace cli {
         float num;
     };
 
-    Literal getNullLiteral();
+    Literal* getNullLiteral();
 
     class Token {
     private:
         TokenType type;
         std::string lexeme;
-        Literal literal;
+        Literal* literal;
         int line;
     
     public:
-        Token(TokenType type, std::string lexeme, Literal literal, int line);
+        Token(TokenType type, std::string lexeme, Literal* literal, int line);
         std::string toString();
     };
 

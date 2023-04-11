@@ -20,13 +20,14 @@ namespace cli {
         bool isAtEnd();
         char advance();
         void addToken(TokenType type);
-        void addToken(TokenType type, Literal literal);
+        void addToken(TokenType type, Literal* literal);
         bool match(char expected);
         void scanToken();
 
     public:
         Scanner(std::string source);
         std::vector<Token> scanTokens();
+        void printSource();
     };
     
 }; 

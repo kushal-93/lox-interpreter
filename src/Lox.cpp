@@ -1,5 +1,7 @@
 #include "../include/Lox.hpp"
 #include "../include/ErrorUtil.hpp"
+#include "../include/Scanner.hpp"
+#include "../include/Token.hpp"
 
 #include <iostream>
 #include <fstream>
@@ -10,12 +12,15 @@ namespace cli {
 
     void Lox::run(std::string source) {
         std::cout << source << std::endl;        
-        //Scanner scanner(source);
-        //Scanner scanner;
-        //std::vector<std::string> tokens = scanner.scanTokens();
+        Scanner scanner(source);
+        std::vector<Token> tokens = scanner.scanTokens();
+
+        for(Token token : tokens) {
+            std::cout << token.toString() <<", ";
+        }
     }
 
-    void Lox::runFile(const char *filePath) {  
+    void Lox::runFile(const char *filePath) {
         std::string path = filePath;
         std::cout << path << std::endl;
         try {

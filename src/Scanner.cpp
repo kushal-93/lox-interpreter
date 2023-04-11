@@ -16,10 +16,10 @@ namespace cli {
     }
 
     void Scanner::addToken(TokenType type) {
-        addToken(type, NULL_LITERAL);
+        addToken(type, NULL);
     }
 
-    void Scanner::addToken(TokenType type, Literal literal) {
+    void Scanner::addToken(TokenType type, Literal* literal) {
         std::string text = source.substr(start, current);
         Token token(type, text, literal, line);
         tokens.push_back(token);
@@ -86,10 +86,10 @@ namespace cli {
     }
 
     Scanner::Scanner(std::string source) {
-        source = source;
-        line = 0;
-        start = 0;
-        current = 0;
+        this->source = source;
+        this->line = 0;
+        this->start = 0;
+        this->current = 0;
     }
 
     std::vector<Token> Scanner::scanTokens() {
@@ -98,10 +98,15 @@ namespace cli {
             scanToken();
         }
 
-        // Token eoflToken(EOFL, "", NULL_LITERAL, line);
-        tokens.push_back(Token(EOFL, "", NULL_LITERAL, line));
+        // Token eoflToken(EOFL, "", NULL, line);
+        // // add end of line token at the end of source
+        // tokens.push_back(eoflToken);
 
         return tokens;
+    }
+
+    void Scanner::printSource() {
+        std::cout << source << std::endl;
     }
 
 };

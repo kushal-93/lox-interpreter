@@ -5,25 +5,30 @@
 
 namespace cli {
 
-    Literal getNullLiteral() {
-        Literal* l = nullptr; 
-        return *l;
+    Literal* getNullLiteral() {
+        Literal* l = NULL; 
+        return l;
     };
 
-    Token::Token(TokenType type, std::string lexeme, Literal literal, int line) {
-        type = type;
-        lexeme = lexeme;
-        literal = literal;
-        line = line;
+    Token::Token(TokenType type, std::string lexeme, Literal* literal, int line) {
+        this->type = type;
+        this->lexeme = lexeme;
+        this->literal = literal;
+        this->line = line;
     }
 
     std::string Token::toString() {
         std::string obj = "";
-        if(type == TokenType::NUMBER) {
-            obj = std::to_string(literal.num);
+        if (!literal) {
+            obj = "NIL";
         }
         else {
-            obj = literal.str;
+            if(type == TokenType::NUMBER) {
+                obj = std::to_string(literal->num);
+            }
+            else {
+                obj = literal->str;
+            }
         }
         return type + " " + lexeme +" "+obj;
     }
