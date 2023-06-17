@@ -18,6 +18,7 @@ namespace cli {
         for(Token token : tokens) {
             std::cout << token.toString() <<", ";
         }
+        std::cout << std::endl;
     }
 
     void Lox::runFile(const char *filePath) {
@@ -49,11 +50,12 @@ namespace cli {
         for(;;) {
             std::cout << "> " ;
             std::string line;
+
             std::getline(std::cin, line);
             if (line.empty()) 
                 break;
             Lox::run(line);
-            ErrorUtil::hadError = true;
+            ErrorUtil::hadError = false;
         }
     }
     

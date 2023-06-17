@@ -80,16 +80,19 @@ namespace cli {
             addToken(match('=') ? LESS_EQUAL : LESS);
             break;
         default :
-            ErrorUtil::error(line, "Unexpected character: "+c);
+            std::string errorMessage = "Unexpected character: ";
+            errorMessage.push_back(c);
+            ErrorUtil::error(line, errorMessage);
             break;    
         }
     }
 
-    Scanner::Scanner(std::string source) {
-        this->source = source;
-        this->line = 0;
-        this->start = 0;
-        this->current = 0;
+    Scanner::Scanner(std::string src) {
+        source = src;
+        line = 0;
+        start = 0;
+        current = 0;
+        tokens = {};
     }
 
     std::vector<Token> Scanner::scanTokens() {

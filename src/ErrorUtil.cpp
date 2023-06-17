@@ -9,7 +9,7 @@ namespace cli {
     bool ErrorUtil::hadError = false;
 
     void ErrorUtil::report(int line, std::string where, std::string message) {
-        std::cout << "[line " << line << "] Error" + where + ": " + message << std::endl;
+        std::cerr << "[line " << line << "] Error" + where + ": " + message << std::endl;
         ErrorUtil::hadError = true;
     }
 

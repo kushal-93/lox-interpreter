@@ -3,7 +3,7 @@
 
 #include <string>
 
-#define NULL_LITERAL getNullLiteral()
+//#define NULL_LITERAL getNullLiteral()
 
 namespace cli {
 
