@@ -18,6 +18,7 @@ namespace cli {
     }
 
     std::string Token::toString() {
+        std::string tokenString;
         std::string obj = "";
         if (!literal) {
             obj = "NIL";
@@ -30,7 +31,14 @@ namespace cli {
                 obj = literal->str;
             }
         }
-        return type + " " + lexeme +" "+obj;
+        tokenString.append(TokenTypeDesc[type]);
+        tokenString.append(" ");
+        tokenString.append(lexeme);
+        tokenString.append(" ");
+        tokenString.append(obj);
+
+        //return type + " " + lexeme +" "+obj;
+        return tokenString;
     }
 
 };

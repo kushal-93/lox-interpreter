@@ -16,9 +16,10 @@ namespace cli {
         std::vector<Token> tokens = scanner.scanTokens();
 
         for(Token token : tokens) {
-            std::cout << token.toString() <<", ";
+            std::cout << token.toString();
+            std::cout << std::endl;
         }
-        std::cout << std::endl;
+        
     }
 
     void Lox::runFile(const char *filePath) {
