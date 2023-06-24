@@ -3,7 +3,6 @@
 
 
 int main(int argc, char const *argv[]) {
-    std::cout << "hey " << std::endl;
     //ErrorUtil::hadError = false;
 
     if (argc > 2) {
@@ -14,6 +13,7 @@ int main(int argc, char const *argv[]) {
         cli::Lox::runFile(argv[1]);
     }
     else {
+        std::cout << "Lox command prompt: " << std::endl;
         cli::Lox::runPrompt();
     }
 

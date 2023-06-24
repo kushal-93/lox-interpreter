@@ -22,6 +22,7 @@ namespace cli {
         void addToken(TokenType type);
         void addToken(TokenType type, Literal* literal);
         bool match(char expected);
+        char peek();
         void scanToken();
 
     public:

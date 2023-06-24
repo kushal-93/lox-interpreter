@@ -20,7 +20,7 @@ namespace cli {
     }
 
     void Scanner::addToken(TokenType type, Literal* literal) {
-        std::string text = source.substr(start, current);
+        std::string text = source.substr(start, current-start);
         Token token(type, text, literal, line);
         tokens.push_back(token);
     }
@@ -32,6 +32,10 @@ namespace cli {
             return false;
         current++;
         return true;
+    }
+
+    char Scanner::peek() {
+        return source[current];
     }
 
     void Scanner::scanToken() {
@@ -78,6 +82,23 @@ namespace cli {
             break;
         case '<':
             addToken(match('=') ? LESS_EQUAL : LESS);
+            break;
+        case '/':
+            if (match('/')) {
+                while (!isAtEnd() && peek()!='\n')
+                    current++;
+            }
+            else 
+                addToken(SLASH);
+            break;
+        case ' ':
+            break;
+        case '\r':
+            break;
+        case '\t':
+            break;
+        case '\n':
+            line++;
             break;
         default :
             std::string errorMessage = "Unexpected character: ";
