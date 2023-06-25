@@ -15,11 +15,11 @@ namespace cli {
         Scanner scanner(source);
         std::vector<Token> tokens = scanner.scanTokens();
 
-        std::cout << std::endl;
         for(Token token : tokens) {
             std::cout << token.toString() << ", ";
         }
-        std::cout << std::endl;
+        if(tokens.size() > 0)
+            std::cout << std::endl;
         
     }
 

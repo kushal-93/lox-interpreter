@@ -16,10 +16,10 @@ namespace cli {
     }
 
     void Scanner::addToken(TokenType type) {
-        addToken(type, NULL);
+        addToken(type, "");
     }
 
-    void Scanner::addToken(TokenType type, Literal* literal) {
+    void Scanner::addToken(TokenType type, std::string literal) {
         std::string text = source.substr(start, current-start);
         Token token(type, text, literal, line);
         tokens.push_back(token);
@@ -38,11 +38,27 @@ namespace cli {
         return source[current];
     }
 
+    void Scanner::readString() {
+        while(!isAtEnd() && peek()!='"' && peek()!='\n'){
+            current++;
+        }
+        if(isAtEnd() || peek()=='\n') {
+            std::string errorMessage = "End of line or file before string is terminated";
+            ErrorUtil::error(line, errorMessage);
+            return;
+        }
+        // current is on closing "
+        std::string value = source.substr(start+1, current-start-1);
+        // propagate to next character
+        current++;
+        addToken(STRING, value);
+    }
+
     void Scanner::scanToken() {
         char c = advance();
         switch (c) {
         case '(':
-            addToken(LEFT_PAREN);
+            addToken(TokenType::LEFT_PAREN);
             break;
         case ')':
             addToken(RIGHT_PAREN);
@@ -91,6 +107,8 @@ namespace cli {
             else 
                 addToken(SLASH);
             break;
+        case '"':
+            readString();
         case ' ':
             break;
         case '\r':

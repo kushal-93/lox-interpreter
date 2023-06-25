@@ -44,22 +44,15 @@ namespace cli {
         "EOFL"
     };
 
-    union Literal {
-        char* str;
-        float num;
-    };
-
-    Literal* getNullLiteral();
-
     class Token {
     private:
         TokenType type;
         std::string lexeme;
-        Literal* literal;
+        std::string literal;
         int line;
     
     public:
-        Token(TokenType type, std::string lexeme, Literal* literal, int line);
+        Token(TokenType type, std::string lexeme, std::string literal, int line);
         std::string toString();
     };
 
