@@ -15,3 +15,9 @@
 * https://stackoverflow.com/questions/8580934/undefined-reference-to-a-static-method
 
 * https://stackoverflow.com/questions/1653958/why-are-ifndef-and-define-used-in-c-header-files
+
+### running notes: 
+
+* not supporting multiline string
+* storing all literal as string in token 
+* will add block comment /*...*/ support
