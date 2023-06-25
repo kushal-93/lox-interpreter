@@ -18,6 +18,10 @@
 
 ### running notes: 
 
-* not supporting multiline string
 * storing all literal as string in token 
-* will add block comment /*...*/ support
+
+### enhancement to the tutorial
+
+* not supporting multiline string
+* support block comment ```/*...*/```
+* support leading and trailing decimal point in numbers (eg. ```.123```, ```123.``` will be valid)
