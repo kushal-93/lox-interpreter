@@ -54,6 +54,33 @@ namespace cli {
         addToken(STRING, value);
     }
 
+    bool Scanner::isDigit(char c) {
+        return (c >= '0' && c <= '9');
+    }
+
+    void Scanner::readNumber(char c) {
+        while(isDigit(peek())) {
+            advance();
+        }
+        //value.push_back(c);
+        std::string value = source.substr(start, current-start);
+        addToken(NUMBER, value);
+    }
+
+    void Scanner::readNumber() {
+        while(isDigit(peek()))
+            advance();
+
+        if(peek() == '.')
+            advance();
+
+        while(isDigit(peek()))
+            advance();
+
+        std::string value = source.substr(start, current-start);
+        addToken(NUMBER, value);
+    }
+
     void Scanner::scanToken() {
         char c = advance();
         switch (c) {
@@ -73,7 +100,8 @@ namespace cli {
             addToken(COMMA);
             break;
         case '.':
-            addToken(DOT);
+            isDigit(peek()) ? readNumber('.') : addToken(DOT); 
+            //addToken(DOT);
             break;
         case '-':
             addToken(MINUS);
@@ -119,9 +147,13 @@ namespace cli {
             line++;
             break;
         default :
-            std::string errorMessage = "Unexpected character: ";
-            errorMessage.push_back(c);
-            ErrorUtil::error(line, errorMessage);
+            if(isDigit(c))
+                readNumber();
+            else {
+                std::string errorMessage = "Unexpected character: ";
+                errorMessage.push_back(c);
+                ErrorUtil::error(line, errorMessage);
+            }
             break;    
         }
     }

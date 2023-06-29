@@ -25,6 +25,9 @@ namespace cli {
         char peek();
         void scanToken();
         void readString();
+        bool isDigit(char c);
+        void readNumber(char c);
+        void readNumber();
 
     public:
         Scanner(std::string source);
