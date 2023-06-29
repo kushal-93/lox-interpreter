@@ -26,8 +26,7 @@ namespace cli {
         void scanToken();
         void readString();
         bool isDigit(char c);
-        void readNumber(char c);
-        void readNumber();
+        void readNumber(bool leadingDecimalPoint);
 
     public:
         Scanner(std::string source);

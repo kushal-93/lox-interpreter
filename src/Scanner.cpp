@@ -58,24 +58,24 @@ namespace cli {
         return (c >= '0' && c <= '9');
     }
 
-    void Scanner::readNumber(char c) {
-        while(isDigit(peek())) {
+    // void Scanner::readNumber(char c) {
+    //     while(isDigit(peek())) {
+    //         advance();
+    //     }
+    //     //value.push_back(c);
+    //     std::string value = source.substr(start, current-start);
+    //     addToken(NUMBER, value);
+    // }
+
+    void Scanner::readNumber(bool leadingDecimalPoint) {
+        while(isDigit(peek()))
             advance();
+
+        if(!leadingDecimalPoint && peek() == '.'){
+            advance();
+            while(isDigit(peek()))
+                advance();
         }
-        //value.push_back(c);
-        std::string value = source.substr(start, current-start);
-        addToken(NUMBER, value);
-    }
-
-    void Scanner::readNumber() {
-        while(isDigit(peek()))
-            advance();
-
-        if(peek() == '.')
-            advance();
-
-        while(isDigit(peek()))
-            advance();
 
         std::string value = source.substr(start, current-start);
         addToken(NUMBER, value);
@@ -100,7 +100,7 @@ namespace cli {
             addToken(COMMA);
             break;
         case '.':
-            isDigit(peek()) ? readNumber('.') : addToken(DOT); 
+            isDigit(peek()) ? readNumber(true) : addToken(DOT); 
             //addToken(DOT);
             break;
         case '-':
@@ -148,7 +148,7 @@ namespace cli {
             break;
         default :
             if(isDigit(c))
-                readNumber();
+                readNumber(false);
             else {
                 std::string errorMessage = "Unexpected character: ";
                 errorMessage.push_back(c);
