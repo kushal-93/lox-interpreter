@@ -51,7 +51,7 @@ namespace cli {
         std::string value = source.substr(start+1, current-start-1);
         // propagate to next character
         current++;
-        addToken(STRING, value);
+        addToken(TokenType::STRING, value);
     }
 
     bool Scanner::isDigit(char c) {
@@ -78,7 +78,27 @@ namespace cli {
         }
 
         std::string value = source.substr(start, current-start);
-        addToken(NUMBER, value);
+        addToken(TokenType::NUMBER, value);
+    }
+
+    bool Scanner::isAlpha(char c) {
+        return (c == '_' || (c>='a' && c<='z') || (c>='A' && c<='Z'));
+    }
+
+    bool Scanner::isAlphaNumeric(char c) {
+        return (isAlpha(c) || isDigit(c));
+    }
+
+    void Scanner::readIdentifier() {
+        while(isAlphaNumeric(peek()))
+            advance();
+        
+        std::string text = source.substr(start, current-start);
+        TokenType type = TokenType::IDENTIFIER;
+        if (keywords.find(text)!= keywords.end())
+            type = keywords[text];
+        
+        addToken(type);
     }
 
     void Scanner::scanToken() {
@@ -88,44 +108,44 @@ namespace cli {
             addToken(TokenType::LEFT_PAREN);
             break;
         case ')':
-            addToken(RIGHT_PAREN);
+            addToken(TokenType::RIGHT_PAREN);
             break;
         case '{':
-            addToken(LEFT_BRACE);
+            addToken(TokenType::LEFT_BRACE);
             break;
         case '}':
-            addToken(RIGHT_BRACE);
+            addToken(TokenType::RIGHT_BRACE);
             break;
         case ',':
-            addToken(COMMA);
+            addToken(TokenType::COMMA);
             break;
         case '.':
-            isDigit(peek()) ? readNumber(true) : addToken(DOT); 
+            isDigit(peek()) ? readNumber(true) : addToken(TokenType::DOT); 
             //addToken(DOT);
             break;
         case '-':
-            addToken(MINUS);
+            addToken(TokenType::MINUS);
             break;
         case '+':
-            addToken(PLUS);
+            addToken(TokenType::PLUS);
             break;
         case ';':
-            addToken(SEMICOLON);
+            addToken(TokenType::SEMICOLON);
             break;
         case '*':
-            addToken(STAR);
-            break; // to support multiline command we gotta change this
+            addToken(TokenType::STAR);
+            break;
         case '!':
-            addToken(match('=') ? BANG_EQUAL : BANG);
+            addToken(match('=') ? TokenType::BANG_EQUAL : TokenType::BANG);
             break;
         case '=':
-            addToken(match('=') ? EQUAL_EQUAL : EQUAL);
+            addToken(match('=') ? TokenType::EQUAL_EQUAL : TokenType::EQUAL);
             break;
         case '>':
-            addToken(match('=') ? GREATER_EQUAL : GREATER);
+            addToken(match('=') ? TokenType::GREATER_EQUAL : TokenType::GREATER);
             break;
         case '<':
-            addToken(match('=') ? LESS_EQUAL : LESS);
+            addToken(match('=') ? TokenType::LESS_EQUAL : TokenType::LESS);
             break;
         case '/':
             if (match('/')) {
@@ -133,7 +153,7 @@ namespace cli {
                     current++;
             }
             else 
-                addToken(SLASH);
+                addToken(TokenType::SLASH);
             break;
         case '"':
             readString();
@@ -149,6 +169,8 @@ namespace cli {
         default :
             if(isDigit(c))
                 readNumber(false);
+            else if (isAlpha(c)) 
+                readIdentifier();
             else {
                 std::string errorMessage = "Unexpected character: ";
                 errorMessage.push_back(c);

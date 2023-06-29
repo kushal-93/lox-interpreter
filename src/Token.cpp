@@ -24,6 +24,7 @@ namespace cli {
         tokenString.append(lexeme);
         tokenString.append(" ");
         tokenString.append(obj);
+        tokenString.append("\n");
 
         return tokenString;
     }

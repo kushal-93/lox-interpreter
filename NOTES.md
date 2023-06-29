@@ -18,10 +18,11 @@
 
 ### running notes: 
 
-* storing all literal as string in token 
+* storing all literal as string in token
+* no ```break``` keyword support in the doc. How complex is it gonna be if I add it?
 
 ### enhancement to the tutorial
 
-* not supporting multiline string
-* support block comment ```/*...*/```
-* support leading and trailing decimal point in numbers (eg. ```.123```, ```123.``` will be valid)
+* [x] not supporting multiline string token
+* [] support block comment ```/*...*/```
+* [x] support leading and trailing decimal point in numbers token (eg. ```.123```, ```123.``` will be valid tokens)

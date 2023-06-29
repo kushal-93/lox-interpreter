@@ -31,7 +31,7 @@ namespace cli {
 
     };
 
-    const std::string TokenTypeDesc[] = {
+    const std::string TokenTypeDesc[] = { 
         "LEFT_PAREN", "RIGHT_PAREN", "LEFT_BRACE", "RIGHT_BRACE",
         "COMMA", "DOT", "MINUS", "PLUS", "SEMICOLON", "SLASH", "STAR",
         "BANG", "BANG_EQUAL",
