@@ -23,6 +23,6 @@
 
 ### enhancement to the tutorial
 
-* :white_check_mark not supporting multiline string token
+* [x] not supporting multiline string token
 * [ ] support block comment ```/*...*/```
-* :white_check_mark support leading and trailing decimal point in numbers token (eg. ```.123```, ```123.``` will be valid tokens)
+* [x] support leading and trailing decimal point in numbers token (eg. ```.123```, ```123.``` will be valid tokens)
