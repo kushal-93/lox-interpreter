@@ -2,6 +2,7 @@
 #define CLI_SCANNER_HPP
 
 #include "Token.hpp"
+#include "Literal.hpp"
 
 #include <string>
 #include <vector>
@@ -39,7 +40,7 @@ namespace cli {
         bool isAtEnd();
         char advance();
         void addToken(TokenType type);
-        void addToken(TokenType type, std::string literal);
+        void addToken(TokenType type, Literal* literal);
         bool match(char expected);
         char peek();
         void scanToken();

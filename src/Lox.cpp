@@ -11,7 +11,7 @@
 namespace cli {
 
     void Lox::run(std::string source) {
-        std::cout << source << std::endl;        
+        std::cout << source << std::endl;
         Scanner scanner(source);
         std::vector<Token> tokens = scanner.scanTokens();
 

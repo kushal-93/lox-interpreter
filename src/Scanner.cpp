@@ -1,6 +1,7 @@
 #include "../include/ErrorUtil.hpp"
 #include "../include/Token.hpp"
 #include "../include/Scanner.hpp"
+#include "../include/Literal.hpp"
 
 #include <iostream>
 #include <vector>
@@ -16,10 +17,10 @@ namespace cli {
     }
 
     void Scanner::addToken(TokenType type) {
-        addToken(type, "");
+        addToken(type, nullptr);
     }
 
-    void Scanner::addToken(TokenType type, std::string literal) {
+    void Scanner::addToken(TokenType type, Literal* literal) {
         std::string text = source.substr(start, current-start);
         Token token(type, text, literal, line);
         tokens.push_back(token);
@@ -51,7 +52,8 @@ namespace cli {
         std::string value = source.substr(start+1, current-start-1);
         // propagate to next character
         current++;
-        addToken(TokenType::STRING, value);
+        Literal literal(value);
+        addToken(TokenType::STRING, &literal);
     }
 
     bool Scanner::isDigit(char c) {
@@ -77,8 +79,10 @@ namespace cli {
                 advance();
         }
 
-        std::string value = source.substr(start, current-start);
-        addToken(TokenType::NUMBER, value);
+        std::string svalue = source.substr(start, current-start);
+        double value = std::stod(svalue);
+        Literal literal(value);
+        addToken(TokenType::NUMBER, &literal);
     }
 
     bool Scanner::isAlpha(char c) {

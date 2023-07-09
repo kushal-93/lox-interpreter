@@ -1,6 +1,7 @@
 #ifndef CLI_TOKEN_HPP
 #define CLI_TOKEN_HPP
 
+#include "../include/Literal.hpp"
 #include <string>
 #include <vector>
 
@@ -48,11 +49,11 @@ namespace cli {
     private:
         TokenType type;
         std::string lexeme;
-        std::string literal;
+        Literal* literal;
         int line;
     
     public:
-        Token(TokenType type, std::string lexeme, std::string literal, int line);
+        Token(TokenType type, std::string lexeme, Literal* literal, int line);
         std::string toString();
     };
 

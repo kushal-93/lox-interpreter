@@ -16,6 +16,8 @@
 
 * https://stackoverflow.com/questions/1653958/why-are-ifndef-and-define-used-in-c-header-files
 
+* https://kevin-yang.medium.com/c-pass-by-value-pointer-reference-ddc3780d907c
+
 ### running notes: 
 
 * storing all literal as string in token
