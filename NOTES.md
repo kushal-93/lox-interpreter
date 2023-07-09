@@ -25,5 +25,5 @@
 ### enhancement to the tutorial
 
 * [x] not supporting multiline string token
-* [ ] support block comment ```/*...*/```
+* [x] support block comment ```/*...*/```
 * [x] support leading and trailing decimal point in numbers token (eg. ```.123```, ```123.``` will be valid tokens)

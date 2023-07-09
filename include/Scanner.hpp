@@ -44,6 +44,7 @@ namespace cli {
         void addToken(TokenType type, std::shared_ptr<Literal> const& literal);
         bool match(char expected);
         char peek();
+        char peekNext();
         void scanToken();
         void readString();
         bool isDigit(char c);
@@ -51,6 +52,7 @@ namespace cli {
         bool isAlpha(char c);
         bool isAlphaNumeric(char c);
         void readIdentifier();
+        void readComment();
 
     public:
         Scanner(std::string source);

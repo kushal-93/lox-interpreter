@@ -40,12 +40,20 @@ namespace cli {
         return source[current];
     }
 
+    char Scanner::peekNext() {
+        // std::cout <<  (int)source.length() << std::endl;
+        if(current+1 >= (int)source.length())
+            return '\0';
+        else
+            return source[current+1];
+    }
+
     void Scanner::readString() {
         while(!isAtEnd() && peek()!='"' && peek()!='\n'){
             current++;
         }
         if(isAtEnd() || peek()=='\n') {
-            std::string errorMessage = "End of line or file before string is terminated";
+            std::string errorMessage = "String is not properly terminated";
             ErrorUtil::error(line, errorMessage);
             return;
         }
@@ -106,6 +114,24 @@ namespace cli {
         addToken(type);
     }
 
+    void Scanner::readComment() {
+        while(!peekNext() == '\0' && !(peekNext() == '/' && peek() == '*')) {
+            if(peek() == '\n')
+                line++;
+            advance();
+        }
+            
+        
+        if(peekNext() == '\0') {
+            std::string errorMessage = "Multi-line comment is not properly closed";
+            ErrorUtil::error(line, errorMessage);
+            current += 2;
+            return;
+        }
+        // eat up "*/"
+        current+=2;
+    }
+
     void Scanner::scanToken() {
         char c = advance();
         switch (c) {
@@ -156,6 +182,9 @@ namespace cli {
             if (match('/')) {
                 while (!isAtEnd() && peek()!='\n')
                     current++;
+            }
+            else if(match('*')) {
+                readComment();
             }
             else 
                 addToken(TokenType::SLASH);
