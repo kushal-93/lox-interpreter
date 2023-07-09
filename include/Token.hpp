@@ -4,6 +4,7 @@
 #include "../include/Literal.hpp"
 #include <string>
 #include <vector>
+#include <memory>
 
 
 //#define NULL_LITERAL getNullLiteral()
@@ -49,11 +50,11 @@ namespace cli {
     private:
         TokenType type;
         std::string lexeme;
-        Literal* literal;
+        std::shared_ptr<Literal> literal;
         int line;
     
     public:
-        Token(TokenType type, std::string lexeme, Literal* literal, int line);
+        Token(TokenType type, std::string lexeme, std::shared_ptr<Literal> const& literal, int line);
         std::string toString();
     };
 

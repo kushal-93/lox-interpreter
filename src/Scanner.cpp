@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <vector>
+#include <memory>
 
 namespace cli {
 
@@ -20,7 +21,7 @@ namespace cli {
         addToken(type, nullptr);
     }
 
-    void Scanner::addToken(TokenType type, Literal* literal) {
+    void Scanner::addToken(TokenType type, std::shared_ptr<Literal> const& literal) {
         std::string text = source.substr(start, current-start);
         Token token(type, text, literal, line);
         tokens.push_back(token);
@@ -52,8 +53,8 @@ namespace cli {
         std::string value = source.substr(start+1, current-start-1);
         // propagate to next character
         current++;
-        Literal literal(value);
-        addToken(TokenType::STRING, &literal);
+        //Literal literal(value);
+        addToken(TokenType::STRING, std::make_shared<Literal>(value));
     }
 
     bool Scanner::isDigit(char c) {
@@ -81,8 +82,8 @@ namespace cli {
 
         std::string svalue = source.substr(start, current-start);
         double value = std::stod(svalue);
-        Literal literal(value);
-        addToken(TokenType::NUMBER, &literal);
+        //Literal literal(value);
+        addToken(TokenType::NUMBER, std::make_shared<Literal>(value));
     }
 
     bool Scanner::isAlpha(char c) {

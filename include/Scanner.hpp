@@ -6,6 +6,7 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 #include <unordered_map>
 
 namespace cli {
@@ -40,7 +41,7 @@ namespace cli {
         bool isAtEnd();
         char advance();
         void addToken(TokenType type);
-        void addToken(TokenType type, Literal* literal);
+        void addToken(TokenType type, std::shared_ptr<Literal> const& literal);
         bool match(char expected);
         char peek();
         void scanToken();

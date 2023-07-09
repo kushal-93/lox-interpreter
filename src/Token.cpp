@@ -3,10 +3,11 @@
 
 #include <iostream>
 #include <string>
+#include <memory>
 
 namespace cli {
 
-    Token::Token(TokenType type, std::string lexeme, Literal* literal, int line) {
+    Token::Token(TokenType type, std::string lexeme, std::shared_ptr<Literal> const& literal, int line) {
         this->type = type;
         this->lexeme = lexeme;
         this->literal = literal;
