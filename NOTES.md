@@ -20,8 +20,7 @@
 
 ### running notes: 
 
-* storing all literal as string in token
-* no ```break``` keyword support in the doc. How complex is it gonna be if I add it?
+* no ```break``` keyword support in the book. How complex is it gonna be if I add it?
 
 ### enhancement to the tutorial
 
