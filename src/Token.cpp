@@ -26,7 +26,8 @@ namespace cli {
         tokenString.append(lexeme);
         tokenString.append(" ");
         tokenString.append(obj);
-        tokenString.append("\n");
+        tokenString.append(" ");
+        tokenString.append(std::to_string(line));
 
         return tokenString;
     }

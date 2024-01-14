@@ -18,6 +18,8 @@
 
 * https://kevin-yang.medium.com/c-pass-by-value-pointer-reference-ddc3780d907c
 
+* https://github.com/chanryu/cloxx/blob/master/src/Token.cpp
+
 ### running notes: 
 
 * no ```break``` keyword support in the book. How complex is it gonna be if I add it?
@@ -25,5 +27,5 @@
 ### enhancement to the tutorial
 
 * [x] not supporting multiline string token
-* [x] support block comment ```/*...*/```
+* [x] support multi-line comment ```/*...*/```
 * [x] support leading and trailing decimal point in numbers token (eg. ```.123```, ```123.``` will be valid tokens)

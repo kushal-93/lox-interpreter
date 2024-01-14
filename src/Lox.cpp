@@ -16,7 +16,8 @@ namespace cli {
         std::vector<Token> tokens = scanner.scanTokens();
 
         for(Token token : tokens) {
-            std::cout << token.toString() << ", ";
+            std::cout << token.toString();
+            std::cout << std::endl;
         }
         if(tokens.size() > 0)
             std::cout << std::endl;
